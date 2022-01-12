@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import type { AppProps } from "next/app";
 import { RecoilRoot } from "recoil";
 
-import activityListState, { taskListState } from "../atoms/states";
+import { activityListState, taskListState } from "../atoms/states";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [taskList, setTaskList] = useState([]);
