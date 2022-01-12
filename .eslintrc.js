@@ -1,6 +1,5 @@
 module.exports = {
   root: true,
-  parser: "eslint-config-next/parser",
   parserOptions: {
     requireConfigFile: false,
     sourceType: "module",
@@ -44,6 +43,7 @@ module.exports = {
         pathGroupsExcludedImportTypes: ["builtin"],
       },
     ],
+    "consistent-return": "off",
   },
   overrides: [
     {
