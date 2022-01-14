@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { css } from "@emotion/react";
+import { Card, Button, Stack } from "@mui/material";
 import {
   addMonths,
   format,
@@ -56,46 +57,53 @@ function Task(props: { taskType: string }) {
   });
 
   return (
-    <div>
-      <div
-        css={css`
-          & .react-calendar-heatmap {
-            max-height: 100px;
-          }
-        `}
-      >
-        <CalendarHeatmap
-          startDate={addMonths(new Date(), -1)}
-          endDate={new Date()}
-          values={value}
-        />
-      </div>
-      <button onClick={handleClick} type="button">
-        {taskType}
-      </button>
-      <LastSubmittedDate filteredList={filteredList} />
-      <DurationSubmittedDate filteredList={filteredList} />
-      <button
-        type="button"
-        onClick={() => {
-          setActivityList([
-            ...activityList,
-            {
-              id: taskType,
-              date: setSeconds(
-                setMinutes(setHours(subDays(new Date(), 1), 23), 59),
-                59
-              ),
-            },
-          ]);
-        }}
-      >
-        押し忘れ
-      </button>
-      <button onClick={handleClearClick} type="button">
-        {taskType} clear
-      </button>
-    </div>
+    <Card
+      css={css`
+        padding: 3%;
+      `}
+    >
+      <Stack spacing={2}>
+        <div
+          css={css`
+            text-align: center;
+            & .react-calendar-heatmap {
+              max-height: 100px;
+            }
+          `}
+        >
+          <CalendarHeatmap
+            startDate={addMonths(new Date(), -12)}
+            endDate={new Date()}
+            values={value}
+          />
+        </div>
+        <Button onClick={handleClick} variant="contained">
+          {taskType}
+        </Button>
+        <LastSubmittedDate filteredList={filteredList} />
+        <DurationSubmittedDate filteredList={filteredList} />
+        <Button
+          onClick={() => {
+            setActivityList([
+              ...activityList,
+              {
+                id: taskType,
+                date: setSeconds(
+                  setMinutes(setHours(subDays(new Date(), 1), 23), 59),
+                  59
+                ),
+              },
+            ]);
+          }}
+          variant="contained"
+        >
+          押し忘れ
+        </Button>
+        <Button onClick={handleClearClick} variant="contained">
+          {taskType} clear
+        </Button>
+      </Stack>
+    </Card>
   );
 }
 

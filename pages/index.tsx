@@ -1,5 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
+import { css } from "@emotion/react";
+import { Button, Stack, TextField } from "@mui/material";
 import { useRecoilState, useSetRecoilState } from "recoil";
 
 import { activityListState, taskListState } from "../atoms/states";
@@ -30,17 +32,39 @@ function Home() {
   }, [taskList]);
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input type="text" value={value} onChange={handleChange} />
-        <input type="submit" value="Submit" />
-      </form>
-      {taskList.map((task) => {
-        return <Task taskType={task} key={task} />;
-      })}
-      <button onClick={handleClick} type="button">
-        all clear
-      </button>
+    <div
+      css={css`
+        background-color: #f5f5f5;
+      `}
+    >
+      <div
+        css={css`
+          max-width: 50vw;
+          margin: 0 auto;
+        `}
+      >
+        <Stack spacing={2}>
+          <form onSubmit={handleSubmit}>
+            <Stack direction="row" spacing={2}>
+              <TextField
+                type="text"
+                value={value}
+                onChange={handleChange}
+                fullWidth
+              />
+              <Button type="submit" variant="contained">
+                Submit
+              </Button>
+            </Stack>
+          </form>
+          {taskList.map((task) => {
+            return <Task taskType={task} key={task} />;
+          })}
+          <Button onClick={handleClick} variant="contained">
+            all clear
+          </Button>
+        </Stack>
+      </div>
     </div>
   );
 }
