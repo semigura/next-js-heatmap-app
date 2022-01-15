@@ -13,13 +13,14 @@ import {
 import CalendarHeatmap from "react-calendar-heatmap";
 import { useRecoilState } from "recoil";
 
-import { activityListState } from "../atoms/states";
+import { activityListState, taskListState } from "../atoms/states";
 
 import "react-calendar-heatmap/dist/styles.css";
 import DurationSubmittedDate from "./DurationSubmittedDate";
 import LastSubmittedDate from "./LastSubmittedDate";
 
 function Task(props: { taskType: string }) {
+  const [taskList, setTaskList] = useRecoilState(taskListState);
   const { taskType } = props;
   const [activityList, setActivityList] = useRecoilState(activityListState);
   const [filteredList, setFilteredList] = useState<
@@ -34,10 +35,18 @@ function Task(props: { taskType: string }) {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      localStorage.setItem("activityListState", JSON.stringify(activityList));
-    }, 1000);
+      if (
+        localStorage.getItem("activityListState") !==
+        JSON.stringify(activityList)
+      ) {
+        localStorage.setItem("activityListState", JSON.stringify(activityList));
+      }
+      if (localStorage.getItem("taskListState") !== JSON.stringify(taskList)) {
+        localStorage.setItem("taskListState", JSON.stringify(taskList));
+      }
+    }, 2000);
     return () => clearInterval(interval);
-  }, [activityList]);
+  }, [activityList, taskList]);
 
   const handleClick = () => {
     setActivityList([...activityList, { id: taskType, date: new Date() }]);
@@ -47,6 +56,7 @@ function Task(props: { taskType: string }) {
     setActivityList(
       activityList.filter((activity) => activity.id !== taskType)
     );
+    setTaskList(taskList.filter((task) => task !== taskType));
   };
 
   const value = filteredList.map((item) => {
