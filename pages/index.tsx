@@ -1,10 +1,9 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-
 import { css } from "@emotion/react";
-import { Button, Stack, TextField } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import { useRecoilState, useSetRecoilState } from "recoil";
 
 import { activityListState, taskListState } from "../atoms/states";
+import Form from "../components/Form";
 import Task from "../components/Task";
 
 function Home() {
@@ -12,24 +11,8 @@ function Home() {
   const setActivityList = useSetRecoilState(activityListState);
   const handleClick = () => {
     setActivityList([]);
+    setTaskList([]);
   };
-  const [value, setValue] = useState("");
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    setTaskList([...taskList, value]);
-    e.preventDefault();
-  };
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      localStorage.setItem("taskListState", JSON.stringify(taskList));
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [taskList]);
 
   return (
     <div
@@ -44,19 +27,7 @@ function Home() {
         `}
       >
         <Stack spacing={2}>
-          <form onSubmit={handleSubmit}>
-            <Stack direction="row" spacing={2}>
-              <TextField
-                type="text"
-                value={value}
-                onChange={handleChange}
-                fullWidth
-              />
-              <Button type="submit" variant="contained">
-                Submit
-              </Button>
-            </Stack>
-          </form>
+          <Form />
           {taskList.map((task) => {
             return <Task taskType={task} key={task} />;
           })}
