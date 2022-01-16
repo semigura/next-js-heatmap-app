@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
 
 import { css } from "@emotion/react";
-import { Card, Button, Stack } from "@mui/material";
+import {
+  Card,
+  Button,
+  Stack,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+} from "@mui/material";
 import {
   addMonths,
   format,
@@ -26,6 +34,7 @@ function Task(props: { taskType: string }) {
   const [filteredList, setFilteredList] = useState<
     { id: string; date: number | Date }[]
   >([]);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   useEffect(() => {
     setFilteredList(
@@ -109,9 +118,36 @@ function Task(props: { taskType: string }) {
         >
           押し忘れ
         </Button>
-        <Button onClick={handleClearClick} variant="contained">
+        <Button
+          onClick={() => {
+            setDialogOpen(true);
+          }}
+          variant="contained"
+        >
           {taskType} clear
         </Button>
+        <Dialog
+          open={dialogOpen}
+          onClose={() => {
+            setDialogOpen(false);
+          }}
+        >
+          <DialogContent>
+            <DialogContentText>消します。いいですか？</DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={() => {
+                setDialogOpen(false);
+              }}
+            >
+              いいえ
+            </Button>
+            <Button onClick={handleClearClick} autoFocus>
+              はい
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Stack>
     </Card>
   );
