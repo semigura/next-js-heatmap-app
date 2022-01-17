@@ -1,15 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { css } from "@emotion/react";
-import {
-  Card,
-  Button,
-  Stack,
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-} from "@mui/material";
+import { Card, Button, Stack } from "@mui/material";
 import {
   addMonths,
   format,
@@ -26,15 +18,14 @@ import { activityListState, taskListState } from "../atoms/states";
 import "react-calendar-heatmap/dist/styles.css";
 import DurationSubmittedDate from "./DurationSubmittedDate";
 import LastSubmittedDate from "./LastSubmittedDate";
+import WarningButton from "./WarningButton";
 
-function Task(props: { taskType: string }) {
+function Task({ taskType }: { taskType: string }) {
   const [taskList, setTaskList] = useRecoilState(taskListState);
-  const { taskType } = props;
   const [activityList, setActivityList] = useRecoilState(activityListState);
   const [filteredList, setFilteredList] = useState<
     { id: string; date: number | Date }[]
   >([]);
-  const [dialogOpen, setDialogOpen] = useState(false);
 
   useEffect(() => {
     setFilteredList(
@@ -118,36 +109,9 @@ function Task(props: { taskType: string }) {
         >
           押し忘れ
         </Button>
-        <Button
-          onClick={() => {
-            setDialogOpen(true);
-          }}
-          variant="contained"
-        >
+        <WarningButton handleConfirm={handleClearClick}>
           {taskType} clear
-        </Button>
-        <Dialog
-          open={dialogOpen}
-          onClose={() => {
-            setDialogOpen(false);
-          }}
-        >
-          <DialogContent>
-            <DialogContentText>消します。いいですか？</DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button
-              onClick={() => {
-                setDialogOpen(false);
-              }}
-            >
-              いいえ
-            </Button>
-            <Button onClick={handleClearClick} autoFocus>
-              はい
-            </Button>
-          </DialogActions>
-        </Dialog>
+        </WarningButton>
       </Stack>
     </Card>
   );
