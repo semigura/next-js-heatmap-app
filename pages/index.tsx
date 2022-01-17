@@ -1,10 +1,11 @@
 import { css } from "@emotion/react";
-import { Button, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { useRecoilState, useSetRecoilState } from "recoil";
 
 import { activityListState, taskListState } from "../atoms/states";
 import Form from "../components/Form";
 import Task from "../components/Task";
+import WarningButton from "../components/WarningButton";
 
 function Home() {
   const [taskList, setTaskList] = useRecoilState(taskListState);
@@ -31,9 +32,7 @@ function Home() {
           {taskList.map((task) => {
             return <Task taskType={task} key={task} />;
           })}
-          <Button onClick={handleClick} variant="contained">
-            all clear
-          </Button>
+          <WarningButton handleConfirm={handleClick}>all clear</WarningButton>
         </Stack>
       </div>
     </div>
