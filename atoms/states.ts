@@ -1,6 +1,8 @@
 import { atom } from "recoil";
 
-export const activityListState = atom<{ id: string; date: number | Date }[]>({
+export type activityListStateProps = { id: string; date: number | Date }[];
+
+export const activityListState = atom<activityListStateProps>({
   key: "activityListState",
   default: [],
 });
