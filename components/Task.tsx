@@ -2,30 +2,24 @@ import { useEffect, useState } from "react";
 
 import { css } from "@emotion/react";
 import { Card, Button, Stack } from "@mui/material";
-import {
-  addMonths,
-  format,
-  setHours,
-  setSeconds,
-  subDays,
-  setMinutes,
-} from "date-fns";
-import CalendarHeatmap from "react-calendar-heatmap";
+import { setHours, setSeconds, subDays, setMinutes } from "date-fns";
 import { useRecoilState } from "recoil";
 
-import { activityListState, taskListState } from "../atoms/states";
+import {
+  activityListState,
+  activityListStateProps,
+  taskListState,
+} from "../atoms/states";
 
-import "react-calendar-heatmap/dist/styles.css";
 import DurationSubmittedDate from "./DurationSubmittedDate";
+import Heatmap from "./Heatmap";
 import LastSubmittedDate from "./LastSubmittedDate";
 import WarningButton from "./WarningButton";
 
 function Task({ taskType }: { taskType: string }) {
   const [taskList, setTaskList] = useRecoilState(taskListState);
   const [activityList, setActivityList] = useRecoilState(activityListState);
-  const [filteredList, setFilteredList] = useState<
-    { id: string; date: number | Date }[]
-  >([]);
+  const [filteredList, setFilteredList] = useState<activityListStateProps>([]);
 
   useEffect(() => {
     setFilteredList(
@@ -59,12 +53,18 @@ function Task({ taskType }: { taskType: string }) {
     setTaskList(taskList.filter((task) => task !== taskType));
   };
 
-  const value = filteredList.map((item) => {
-    return {
-      date: format(new Date(item.date), "yyyy-MM-dd"),
-      count: 1,
-    };
-  });
+  const handleReliefClick = () => {
+    setActivityList([
+      ...activityList,
+      {
+        id: taskType,
+        date: setSeconds(
+          setMinutes(setHours(subDays(new Date(), 1), 23), 59),
+          59
+        ),
+      },
+    ]);
+  };
 
   return (
     <Card
@@ -73,40 +73,13 @@ function Task({ taskType }: { taskType: string }) {
       `}
     >
       <Stack spacing={2}>
-        <div
-          css={css`
-            text-align: center;
-            & .react-calendar-heatmap {
-              max-height: 100px;
-            }
-          `}
-        >
-          <CalendarHeatmap
-            startDate={addMonths(new Date(), -12)}
-            endDate={new Date()}
-            values={value}
-          />
-        </div>
+        <Heatmap filteredList={filteredList} />
         <Button onClick={handleClick} variant="contained">
           {taskType}
         </Button>
         <LastSubmittedDate filteredList={filteredList} />
         <DurationSubmittedDate filteredList={filteredList} />
-        <Button
-          onClick={() => {
-            setActivityList([
-              ...activityList,
-              {
-                id: taskType,
-                date: setSeconds(
-                  setMinutes(setHours(subDays(new Date(), 1), 23), 59),
-                  59
-                ),
-              },
-            ]);
-          }}
-          variant="contained"
-        >
+        <Button onClick={handleReliefClick} variant="contained">
           押し忘れ
         </Button>
         <WarningButton handleConfirm={handleClearClick}>
