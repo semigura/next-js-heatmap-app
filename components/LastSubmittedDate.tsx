@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 
 import { formatISO9075 } from "date-fns";
 
-function LastSubmittedDate(props: {
-  filteredList: { id: string; date: number | Date }[];
+import { activityListStateProps } from "../atoms/states";
+
+function LastSubmittedDate({
+  filteredList,
+}: {
+  filteredList: activityListStateProps;
 }) {
-  const { filteredList } = props;
   const [lastSubmittedDate, setLastSubmittedDate] = useState("");
 
   useEffect(() => {

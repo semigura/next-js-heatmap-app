@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 
 import { formatDuration, intervalToDuration } from "date-fns";
 
-function DurationSubmittedDate(props: {
-  filteredList: { id: string; date: number | Date }[];
+import { activityListStateProps } from "../atoms/states";
+
+function DurationSubmittedDate({
+  filteredList,
+}: {
+  filteredList: activityListStateProps;
 }) {
-  const { filteredList } = props;
   const [durationSubmittedDate, setDurationSubmittedDate] = useState("");
 
   useEffect(() => {
