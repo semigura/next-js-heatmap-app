@@ -19,6 +19,7 @@ module.exports = {
     "plugin:@next/next/recommended",
     "plugin:cypress/recommended",
     "plugin:prettier/recommended",
+    "plugin:storybook/recommended",
   ],
   ignorePatterns: [".next/", "examples/", "node_modules/", "public/"],
   rules: {
@@ -27,18 +28,31 @@ module.exports = {
     "import/no-unresolved": "off",
     "react/jsx-filename-extension": [
       "error",
-      { extensions: [".js", ".jsx", ".ts", ".tsx"] },
+      {
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
+      },
     ],
     "react/react-in-jsx-scope": "off",
     "import/order": [
       "error",
       {
-        alphabetize: { order: "asc", caseInsensitive: true },
+        alphabetize: {
+          order: "asc",
+          caseInsensitive: true,
+        },
         "newlines-between": "always",
         groups: ["builtin", "external", "parent", "sibling", "index"],
         pathGroups: [
-          { pattern: "react", group: "external", position: "before" },
-          { pattern: "@/**", group: "external", position: "after" },
+          {
+            pattern: "react",
+            group: "external",
+            position: "before",
+          },
+          {
+            pattern: "@/**",
+            group: "external",
+            position: "after",
+          },
         ],
         pathGroupsExcludedImportTypes: ["builtin"],
       },
