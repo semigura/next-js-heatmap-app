@@ -11,7 +11,7 @@ describe("テスト", () => {
     cy.get('button[type="button"]').contains("test").click();
     cy.get("@todayCell").should("have.class", "color-filled");
     cy.tick(1000);
-    cy.wait(1000);
+    cy.wait(10000);
     cy.contains("最後に押した日時：1970-01-01 09:00:00");
     cy.contains("最後に押してから：1 second");
   });
@@ -29,7 +29,7 @@ describe("テスト", () => {
     cy.get('button[type="button"]').contains("押し忘れ").click();
     cy.get("@yesterdayCell").should("have.class", "color-filled");
     cy.tick(1000);
-    cy.wait(1000);
+    cy.wait(10000);
     cy.contains("最後に押した日時：1969-12-31 23:59:59");
     cy.contains("最後に押してから：9 hours 2 seconds");
   });
