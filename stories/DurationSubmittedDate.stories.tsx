@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import DurationSubmittedDate from "../components/DurationSubmittedDate";
