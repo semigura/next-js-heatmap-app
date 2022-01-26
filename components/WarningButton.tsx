@@ -40,7 +40,13 @@ function WarningButton({
           >
             いいえ
           </Button>
-          <Button onClick={handleConfirm} autoFocus>
+          <Button
+            onClick={() => {
+              handleConfirm();
+              setOpen(false);
+            }}
+            autoFocus
+          >
             はい
           </Button>
         </DialogActions>
