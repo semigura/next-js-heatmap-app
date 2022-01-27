@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import { Stack } from "@mui/material";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 
 import { activityListState, taskListState } from "../atoms/states";
 import Form from "../components/Form";
@@ -8,11 +8,12 @@ import Task from "../components/Task";
 import WarningButton from "../components/WarningButton";
 
 function Home() {
-  const [taskList, setTaskList] = useRecoilState(taskListState);
-  const setActivityList = useSetRecoilState(activityListState);
+  const taskList = useRecoilValue(taskListState);
+  const resetTaskListState = useResetRecoilState(taskListState);
+  const resetActivityListState = useResetRecoilState(activityListState);
   const handleClick = () => {
-    setActivityList([]);
-    setTaskList([]);
+    resetTaskListState();
+    resetActivityListState();
   };
 
   return (
