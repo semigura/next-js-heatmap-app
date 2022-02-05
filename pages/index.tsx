@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { Stack } from "@mui/material";
+import { Stack, Button } from "@mui/material";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 
 import { activityListState, taskListState } from "../atoms/states";
@@ -9,11 +9,22 @@ import WarningButton from "../components/WarningButton";
 
 function Home() {
   const taskList = useRecoilValue(taskListState);
+  const activityList = useRecoilValue(activityListState);
   const resetTaskListState = useResetRecoilState(taskListState);
   const resetActivityListState = useResetRecoilState(activityListState);
   const handleClick = () => {
     resetTaskListState();
     resetActivityListState();
+  };
+  const copyTextToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text).then(
+      function () {
+        console.log("Async: Copying to clipboard was successful!");
+      },
+      function (err) {
+        console.error("Async: Could not copy text: ", err);
+      }
+    );
   };
 
   return (
@@ -34,6 +45,14 @@ function Home() {
             return <Task taskType={task} key={task} />;
           })}
           <WarningButton handleConfirm={handleClick}>all clear</WarningButton>
+          <Button
+            onClick={() => {
+              copyTextToClipboard(JSON.stringify(activityList));
+            }}
+            variant="contained"
+          >
+            Copy clipboard
+          </Button>
         </Stack>
       </div>
     </div>
