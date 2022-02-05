@@ -26,20 +26,11 @@
   "devDependencies": {
     "@babel/core": "^7.17.0",
     "@emotion/babel-preset-css-prop": "^11.2.0",
-<<<<<<< HEAD
     "@next/eslint-plugin-next": "^12.0.8",
     "@storybook/addon-actions": "^6.4.14",
     "@storybook/addon-essentials": "^6.4.14",
     "@storybook/addon-links": "^6.4.14",
     "@types/react": "17.0.38",
-=======
-    "@next/eslint-plugin-next": "^12.0.10",
-    "@storybook/addon-actions": "^6.4.18",
-    "@storybook/addon-essentials": "^6.4.18",
-    "@storybook/addon-links": "^6.4.18",
-    "@storybook/react": "^6.4.18",
-    "@types/react": "17.0.39",
->>>>>>> dc203a4 (Update packages)
     "@types/react-calendar-heatmap": "^1.6.3",
     "@typescript-eslint/eslint-plugin": "^5.10.2",
     "@typescript-eslint/parser": "^5.10.2",
