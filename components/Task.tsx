@@ -5,11 +5,7 @@ import { Card, Button, Stack } from "@mui/material";
 import { setHours, setSeconds, subDays, setMinutes } from "date-fns";
 import { useRecoilState } from "recoil";
 
-import {
-  activityListState,
-  activityListStateProps,
-  taskListState,
-} from "../atoms/states";
+import { activityListState, activityListStateProps } from "../atoms/states";
 
 import DurationSubmittedDate from "./DurationSubmittedDate";
 import Heatmap from "./Heatmap";
@@ -17,7 +13,6 @@ import LastSubmittedDate from "./LastSubmittedDate";
 import WarningButton from "./WarningButton";
 
 function Task({ taskType }: { taskType: string }) {
-  const [taskList, setTaskList] = useRecoilState(taskListState);
   const [activityList, setActivityList] = useRecoilState(activityListState);
   const [filteredList, setFilteredList] = useState<activityListStateProps>([]);
 
@@ -35,12 +30,9 @@ function Task({ taskType }: { taskType: string }) {
       ) {
         localStorage.setItem("activityListState", JSON.stringify(activityList));
       }
-      if (localStorage.getItem("taskListState") !== JSON.stringify(taskList)) {
-        localStorage.setItem("taskListState", JSON.stringify(taskList));
-      }
     }, 2000);
     return () => clearInterval(interval);
-  }, [activityList, taskList]);
+  }, [activityList]);
 
   const handleClick = () => {
     setActivityList([...activityList, { id: taskType, date: new Date() }]);
@@ -50,7 +42,6 @@ function Task({ taskType }: { taskType: string }) {
     setActivityList(
       activityList.filter((activity) => activity.id !== taskType)
     );
-    setTaskList(taskList.filter((task) => task !== taskType));
   };
 
   const handleReliefClick = () => {

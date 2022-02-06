@@ -6,8 +6,3 @@ export const activityListState = atom<activityListStateProps>({
   key: "activityListState",
   default: [],
 });
-
-export const taskListState = atom<string[]>({
-  key: "taskListState",
-  default: [],
-});
