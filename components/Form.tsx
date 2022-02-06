@@ -3,14 +3,14 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { Button, Stack, TextField } from "@mui/material";
 import { useRecoilState } from "recoil";
 
-import { taskListState } from "../atoms/states";
+import { activityListState } from "../atoms/states";
 
 function Form() {
-  const [taskList, setTaskList] = useRecoilState(taskListState);
+  const [activityList, setActivityList] = useRecoilState(activityListState);
   const [value, setValue] = useState("");
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    setTaskList([...taskList, value]);
+    setActivityList([...activityList, { id: value, date: new Date(0) }]);
     e.preventDefault();
   };
 

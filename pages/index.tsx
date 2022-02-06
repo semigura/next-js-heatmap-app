@@ -2,26 +2,29 @@ import { css } from "@emotion/react";
 import { Stack, Button } from "@mui/material";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 
-import { activityListState, taskListState } from "../atoms/states";
+import { activityListState } from "../atoms/states";
 import Form from "../components/Form";
 import Task from "../components/Task";
 import WarningButton from "../components/WarningButton";
 
 function Home() {
-  const taskList = useRecoilValue(taskListState);
   const activityList = useRecoilValue(activityListState);
-  const resetTaskListState = useResetRecoilState(taskListState);
+  const taskList = activityList
+    .map((activity) => activity.id)
+    .filter((x, i, self) => {
+      return self.indexOf(x) === i;
+    });
   const resetActivityListState = useResetRecoilState(activityListState);
+
   const handleClick = () => {
-    resetTaskListState();
     resetActivityListState();
   };
   const copyTextToClipboard = (text: string) => {
     navigator.clipboard.writeText(text).then(
-      function () {
+      () => {
         console.log("Async: Copying to clipboard was successful!");
       },
-      function (err) {
+      (err) => {
         console.error("Async: Could not copy text: ", err);
       }
     );
