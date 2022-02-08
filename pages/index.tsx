@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import { Stack, Button } from "@mui/material";
+import crypto from "crypto-js";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 
 import { activityListState } from "../atoms/states";
@@ -50,7 +51,15 @@ function Home() {
           <WarningButton handleConfirm={handleClick}>all clear</WarningButton>
           <Button
             onClick={() => {
-              copyTextToClipboard(JSON.stringify(activityList));
+              if (!process.env.NEXT_PUBLIC_KEY) {
+                return;
+              }
+              copyTextToClipboard(
+                crypto.AES.encrypt(
+                  JSON.stringify(activityList),
+                  process.env.NEXT_PUBLIC_KEY
+                ).toString()
+              );
             }}
             variant="contained"
           >
