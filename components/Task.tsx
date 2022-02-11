@@ -23,15 +23,7 @@ function Task({ taskType }: { taskType: string }) {
   }, [activityList, taskType]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (
-        localStorage.getItem("activityListState") !==
-        JSON.stringify(activityList)
-      ) {
-        localStorage.setItem("activityListState", JSON.stringify(activityList));
-      }
-    }, 2000);
-    return () => clearInterval(interval);
+    localStorage.setItem("activityListState", JSON.stringify(activityList));
   }, [activityList]);
 
   const handleClick = () => {
