@@ -65,6 +65,23 @@ function Home() {
           >
             Copy clipboard
           </Button>
+          <Button
+            onClick={() => {
+              if (!process.env.NEXT_PUBLIC_KEY) {
+                return;
+              }
+              const data = window.prompt("入力してください", "");
+              if (data) {
+                const decryptdata = crypto.AES.decrypt(
+                  data,
+                  process.env.NEXT_PUBLIC_KEY
+                ).toString(crypto.enc.Utf8);
+                localStorage.setItem("activityListState", decryptdata);
+              }
+            }}
+          >
+            Load
+          </Button>
         </Stack>
       </div>
     </div>
