@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",
-    "@dnd-kit/core": "^5.0.2",
+    "@dnd-kit/core": "^5.0.3",
     "@dnd-kit/sortable": "^6.0.1",
     "@dnd-kit/utilities": "^3.1.0",
     "@emotion/babel-preset-css-prop": "^11.2.0",
