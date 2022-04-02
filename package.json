@@ -11,11 +11,11 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@blueprintjs/core": "^4.0.3",
+    "@blueprintjs/core": "^4.0.4",
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
     "@mui/material": "^5.5.3",
-    "@storybook/react": "^6.4.19",
+    "@storybook/react": "^6.4.20",
     "crypto-js": "^4.1.1",
     "date-fns": "^2.28.0",
     "dotenv": "^16.0.0",
@@ -24,7 +24,7 @@
     "react": "18.0.0",
     "react-calendar-heatmap": "^1.8.1",
     "react-dom": "18.0.0",
-    "recoil": "^0.6.1"
+    "recoil": "^0.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",
@@ -33,9 +33,9 @@
     "@dnd-kit/utilities": "^3.1.0",
     "@emotion/babel-preset-css-prop": "^11.2.0",
     "@next/eslint-plugin-next": "^12.1.4",
-    "@storybook/addon-actions": "^6.4.19",
-    "@storybook/addon-essentials": "^6.4.19",
-    "@storybook/addon-links": "^6.4.19",
+    "@storybook/addon-actions": "^6.4.20",
+    "@storybook/addon-essentials": "^6.4.20",
+    "@storybook/addon-links": "^6.4.20",
     "@types/crypto-js": "^4.1.1",
     "@types/react": "17.0.43",
     "@types/react-calendar-heatmap": "^1.6.3",
